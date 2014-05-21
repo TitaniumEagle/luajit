@@ -2,30 +2,30 @@ project "luajit"
 			
 	kind ("Makefile")
 
-	configuration "x32"
+	configuration {"windows", "x32"}
 		buildcommands {
-			"cd " ..BDIR_THIRDPARTY.."luajit-2.0/src/ &msvcbuild.bat"
+			"cd " ..BDIR_THIRDPARTY.."luajit/src/ &msvcbuild.bat"
 		}
 		
 		rebuildcommands {
-			"cd " ..BDIR_THIRDPARTY.."luajit-2.0/src/ &msvcbuild.bat"
+			"cd " ..BDIR_THIRDPARTY.."luajit/src/ &msvcbuild.bat"
 		}
 		
 		cleancommands {
-			"cd " ..BDIR_THIRDPARTY.."luajit-2.0/src/ &del ?.dll &del ?.exe &del ?.lib"
+			"cd " ..BDIR_THIRDPARTY.."luajit/src/ &del ?.dll &del ?.exe &del ?.lib"
 		}
 	
-	configuration "x64"
+	configuration {"windows", "x64"}
 		buildcommands {
-			"setenv /release /x64", "cd " ..BDIR_THIRDPARTY.."luajit-2.0/src/ &msvcbuild.bat"
+			"setenv /release /x64", "cd " ..BDIR_THIRDPARTY.."luajit/src/ &msvcbuild.bat"
 		}
 		
 		rebuildcommands {
-			"setenv /release /x64", "cd " ..BDIR_THIRDPARTY.."luajit-2.0/src/ &msvcbuild.bat"
+			"setenv /release /x64", "cd " ..BDIR_THIRDPARTY.."luajit/src/ &msvcbuild.bat"
 		}
 		
 		cleancommands {
-			"cd " ..BDIR_THIRDPARTY.."luajit-2.0/src/ &del ?.dll &del ?.exe &del ?.lib"
+			"cd " ..BDIR_THIRDPARTY.."luajit/src/ &del ?.dll &del ?.exe &del ?.lib"
 		}
 		
 	configuration {}
