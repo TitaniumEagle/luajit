@@ -2,36 +2,35 @@ project "luajit"
 			
 	kind ("Makefile")
 
-	configuration {"windows", "x32"}
+	configuration {"vs*", "x64"}
+		buildcommands { "setenv /release /x64" }
+		rebuildcommands { "setenv /release /x64" }
+	
+	configuration {"vs*"}
+	
 		buildcommands {
-			"cd " ..BDIR_THIRDPARTY.."luajit/src/ &msvcbuild.bat"
+			"cd " ..DIR_THIRDPARTY.."luajit/src/", 
+			"msvcbuild.bat",
+			"copy lua51.dll \"../../../../Lib/ThirdParty\\luajit_v2.0.3_windows-"..targetPlatform.."-"..toolset.."-"..configurationS..".dll\"",
+			"copy lua51.lib \"../../../../Lib/ThirdParty\\luajit_v2.0.3_windows-"..targetPlatform.."-"..toolset.."-"..configurationS..".lib\"",
+			"copy lua51.exp \"../../../../Lib/ThirdParty\\luajit_v2.0.3_windows-"..targetPlatform.."-"..toolset.."-"..configurationS..".exp\""
 		}
 		
 		rebuildcommands {
-			"cd " ..BDIR_THIRDPARTY.."luajit/src/ &msvcbuild.bat"
+			"cd " ..DIR_THIRDPARTY.."luajit/src/", 
+			"msvcbuild.bat"
 		}
 		
 		cleancommands {
-			"cd " ..BDIR_THIRDPARTY.."luajit/src/ &del ?.dll &del ?.exe &del ?.lib"
+			"cd " ..DIR_THIRDPARTY.."luajit/src/",
+			"del *.dll",
+			"del *.exe",
+			"del *.lib"
 		}
 	
-	configuration {"windows", "x64"}
-		buildcommands {
-			"setenv /release /x64", "cd " ..BDIR_THIRDPARTY.."luajit/src/ &msvcbuild.bat"
-		}
-		
-		rebuildcommands {
-			"setenv /release /x64", "cd " ..BDIR_THIRDPARTY.."luajit/src/ &msvcbuild.bat"
-		}
-		
-		cleancommands {
-			"cd " ..BDIR_THIRDPARTY.."luajit/src/ &del ?.dll &del ?.exe &del ?.lib"
-		}
-		
 	configuration {}
 	
 	targetdir( "src/" )
 	location( LDIR_THIRDPARTY_BUILD )
 	
 	buildoutputs { "lua51.lib", "lua51.dll" }
-	print(project().location)
